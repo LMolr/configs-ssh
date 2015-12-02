@@ -1,0 +1,2 @@
+ssh:
+  keepalive: 65536
