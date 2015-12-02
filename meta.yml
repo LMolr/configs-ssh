@@ -1,0 +1,7 @@
+elems:
+  - src: elems/(config)$
+    dst: ~/.ssh/<1>
+    perms: 600
+    only:
+      features:
+        - ssh
