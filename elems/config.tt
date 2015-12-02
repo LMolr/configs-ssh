@@ -1,0 +1,4 @@
+<% if get_var 'ssh.keepalive' %>
+Host *
+ServerAliveInterval <%= Integer get_var! 'ssh.keepalive' %>
+<% end %>
