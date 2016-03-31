@@ -6,3 +6,5 @@ elems:
     only:
       features:
         - ssh
+
+# vim: set filetype=eruby.yaml :

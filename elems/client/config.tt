@@ -31,14 +31,14 @@
 #                                                                              │
 # ─────────────────────────────────────────────────────────────────────────────┤
 <% define_locals do
-  variable "ssh.client.keepalive", type: :int?
+  variable :"ssh.client.keepalive", type: :int?, as: :keepalive
 end -%>
 # ─────────────────────────────────────────────────────────────────────────────┘
 
 Host *
 
-<% local?("ssh.client.keepalive") do |keepalive| %>
-ServerAliveInterval <%= keepalive %>
+<% if local? :keepalive %>
+ServerAliveInterval <%= local! :keepalive %>
 <% end -%>
 
 # vim: set filetype=eruby.config :
