@@ -1,10 +1,13 @@
 elems:
 
-  - src: elems/client/(config)$
-    dst: ~/.ssh/<1>
-    perms: "600"
-    only:
-      features:
-        - ssh
+  - src:   ^client/(config)$
+    dst:   ~/.ssh/<1>
+    perms: 600
+    only:  f?ssh
+
+  - src:  ^(ssh-agent\.service)$
+    dst:  ~/.config/systemd/user/<1>
+    only: f?ssh && f?systemd
+
 
 # vim: set filetype=eruby.yaml :

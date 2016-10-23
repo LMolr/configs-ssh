@@ -1,8 +1,8 @@
 # ─────────────────────────────────────────────────────────────────────────────┐
 #                                                                              │
 # File informations:                                                           │
-# - Name:    elems/client/config.tt                                            │
-# - Summary: The SSH client configuration.                                     │
+# - Name:    elems/ssh-agent.service.tt                                        │
+# - Summary: The systemd (user-level) service for ssh agent.                   │
 # - Authors:                                                                   │
 #   - Alessandro Molari <molari.alessandro@gmail.com> (alem0lars)              │
 #                                                                              │
@@ -29,18 +29,19 @@
 # See the License for the specific language governing permissions and          │
 # limitations under the License.                                               │
 #                                                                              │
-# ─────────────────────────────────────────────────────────────────────────────┤
-<% define_locals do
-  variable :"ssh.client.keepalive", type: :int?, as: :keepalive
-end -%>
 # ─────────────────────────────────────────────────────────────────────────────┘
 
 
-Host *
+[Unit]
+Description=SSH key agent
 
-<% if local? :keepalive %>
-ServerAliveInterval <%= local! :keepalive %>
-<% end -%>
+[Service]
+Type=forking
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+ExecStart=/usr/bin/ssh-agent -a $SSH_AUTH_SOCK
+
+[Install]
+WantedBy=default.target
 
 
-# vim: set filetype=eruby.config :
+# vim: set filetype=eruby.systemd :
