@@ -32,6 +32,7 @@
 # ─────────────────────────────────────────────────────────────────────────────┤
 <% define_locals do
   variable :"ssh.client.keepalive", type: :int?, as: :keepalive
+  variable :"ssh.client.hosts", as: :hosts
 end -%>
 # ─────────────────────────────────────────────────────────────────────────────┘
 
@@ -41,6 +42,15 @@ Host *
 <% if local? :keepalive %>
 ServerAliveInterval <%= local! :keepalive %>
 <% end -%>
+
+<% if local? :hosts %>
+  <% local!(:hosts).each do |host| %>
+Host <%= host[:name] %>
+IdentitiesOnly yes
+User <%= host[:user] %>
+IdentityFile <%= host[:private_key] %>
+  <% end %>
+<% end %>
 
 
 # vim: set filetype=eruby.config :

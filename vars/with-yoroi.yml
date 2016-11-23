@@ -1,0 +1,12 @@
+ssh:
+  client:
+    hosts:
+      - name: g0probes.yoroi
+        user: yoroi
+        private_key: ~/.ssh/yoroi
+      - name: g0probes.yoroi
+        user: ground0
+        private_key: ~/.ssh/ground0
+
+
+# vim: set filetype=eruby.yaml :
